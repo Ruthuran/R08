@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI CALCULATOR</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 108vh;
+            background: url(https://i.ytimg.com/vi/NJiw11hIKKM/maxresdefault.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .box {
+            width: 500px;
+            
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 2px 2px 20px 5px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            color: rgb(0, 0, 0, 0.7);
+            font-weight: bold;
+            font-size: 36px;
+        }
+
+        .content {
+            padding: 0 30px;
+        }
+
+        .input{
+            background: #fff;
+            box-shadow: 0px 0px 95px -30px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            margin-left: 10px;
+        }
+
+        .input label {
+            display:block;
+            font-size: 18px;
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 15px;
+             
+        }
+        .containerHW{
+            display: flex;
+
+
+        }
+        
+        
+        .input input {
+            outline: none;
+            border: none;
+            border-bottom: 1px solid #5783fb;
+            width: 50%;
+            text-align: center;
+            font-size: 28px;
+            font-family: "Nunito", sans-serif;
+           
+        }
+        
+        
+
+        .gender {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background: #fff;
+            box-shadow: 0px 0px 95px -30px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        .gender .container {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-top: 7px;
+            cursor: pointer;
+            font-size: 22px;
+            user-select: none;
+        }
+
+        .gender .container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #eee;
+            border-radius: 50%;
+        }
+
+        .gender .container:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        .gender .container input:checked ~ .checkmark {
+            background-color: #2196F3;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .gender .container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .gender .container .checkmark:after {
+            top: 9px;
+            left: 9px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgb(248, 246, 246);
+        }
+
+        button.calculate {
+            cursor: pointer;
+            font-family: "Nunito", sans-serif;
+            color: #fff;
+            background: rgb(97,138,254,1);
+            font-size: 16px;
+            border-radius: 7px;
+            padding: 12px 0;
+            width: 100%;
+            outline: none;
+            border: none;
+            transition: all 0.5s;
+        }
+
+        button.calculate:hover {
+            background: #0044ff;
+        }
+
+        .result {
+            padding: 10px 20px;
+        }
+
+        .result p {
+            font-weight: 600;
+            font-size: 22px;
+            color: #0b0101;
+            margin-bottom: 15px;
+        }
+
+        .result #result {
+            font-size: 36px;
+            font-weight: 900;
+            color: #4f7df9;
+            background-color: #eaeaea;
+            display: inline-block;
+            padding: 7px 20px;
+            border-radius: 55px;
+            margin-bottom: 25px;
+        }
+
+        #comment {
+            color: #4f7df9;
+            font-weight: 800;
+        }
+
+        .comment {
+            display: none;
+            border: dashed 1px;
+            border-radius: 7px;
+            padding: 5px;
+            background-color:white;
+        }
+
+        @media (max-width: 700px){
+            .box {
+                width: 380px;
+            }
+
+            .input label {
+                font-size: 18px;
+            }
+
+            .inputH label, .inputW label {
+                font-size: 14px;
+            }
+
+            .input input, .inputH input, .inputW input{
+                font-size: 24px;
+            }
+
+            .modal-content {
+                width: 380px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <h1>BMI Calculator</h1>
+            <div class="content">
+                <div class="input">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" autocomplete="off" required/>
+                </div>
+
+                <div class="gender">
+                    <label class="container">
+                        <input type="radio" name="radio" id="m">
+                        <p class="text">Male</p>
+                        <span class="checkmark"></span>
+                    </label>
+
+                    <label class="container">
+                        <input type="radio" name="radio" id="f">
+                        <p class="text">Female</p>
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+
+                <div class="containerHW">
+                    <div class="input" id="h">
+                        <label for="height">Height (cm)</label>
+                        <input type="number" id="height" required>
+                    </div>
+
+                    <div class="input" id="w">
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" id="weight" required>
+                    </div>
+                </div>
+
+                <button class="calculate" id="submit" onclick="calculate();">Calculate BMI</button>
+            </div>
+            <div class="result">
+                <p>Your BMI is:</p>
+                <div id="result">00.00</div>
+                <p class="comment"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    
+        var age = document.getElementById("age");
+        var height = document.getElementById("height");
+        var weight = document.getElementById("weight");
+        var male = document.getElementById("m");
+        var female = document.getElementById("f");
+        var resultArea = document.querySelector(".comment");
+
+        
+        function calculate() {
+            const ageValue = age.value;
+            const heightValue = height.value;
+            const weightValue = weight.value;
+
+            
+            if (!ageValue || !heightValue || !weightValue || (male.checked === false && female.checked === false)) {
+                alert("All fields are required! Please fill them out properly.");
+                return;
+            }
+
+            // Validate inputs
+            if (isNaN(ageValue) || isNaN(heightValue) || isNaN(weightValue) || ageValue <= 0 || heightValue <= 0 || weightValue <= 0) {
+                alert("Please enter valid numeric values for age, height, and weight.");
+                return;
+            }
+
+    
+            var bmi = Number(weightValue) / (Number(heightValue) / 100 * Number(heightValue) / 100);
+            var result = '';
+
+            if (bmi < 18.5) {
+                result = 'Underweight';
+            } else if (18.5 <= bmi && bmi <= 24.9) {
+                result = 'Healthy';
+            } else if (25 <= bmi && bmi <= 29.9) {
+                result = 'Overweight';
+            } else if (30 <= bmi && bmi <= 34.9) {
+                result = 'Obese';
+            } else if (bmi >= 35) {
+                result = 'Extremely obese';
+            }
+
+        
+            document.querySelector("#result").innerHTML = bmi.toFixed(2);
+
+            
+            document.querySelector(".comment").style.display = "block";
+            document.querySelector(".comment").innerHTML = `You are <span id="comment">${result}</span>`;
+        }
+    </script>
+</body>
+</html>
